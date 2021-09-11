@@ -9,7 +9,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-
+from sklearn.ensemble import RandomForestClassifier
 
 st.write("""
          # HR Analytics: Job Change of Data Scientist
