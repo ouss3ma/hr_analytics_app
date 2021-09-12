@@ -11,13 +11,33 @@ import numpy as np
 import pickle
 from sklearn.ensemble import RandomForestClassifier
 
+
 st.write("""
          # HR Analytics: Job Change of Data Scientist
          
-         This app predicts the probability of an candidate will look for 
-         another job after the training
+         ## Problem
          
-         Data optained from Kaggle 
+         A company which is active in Big Data and Data Science wants to hire 
+         data scientists among people who successfully pass some courses which 
+         conduct by the company. Many people signup for their training. 
+         Company wants to know which of these candidates are really wants 
+         to work for the company after training or looking for 
+         a new employment because it helps to reduce the cost and time 
+         as well as the quality of training or planning the courses and 
+         categorization of candidates. Information related to demographics, 
+         education, experience are in hands from candidates signup and 
+         enrollment.""")
+
+st.write("""
+         
+         ## Objective
+         
+         This app predicts the probability of a candidate looking for 
+         a new job or will work for the company.
+         
+         ## Data
+         
+         Data obtained from Kaggle: 
          https://www.kaggle.com/arashnic/hr-analytics-job-change-of-data-scientists
 
          """)
@@ -123,13 +143,30 @@ model = pickle.load(open('model.pkl', 'rb'))
 
 
 #predictions
-prediction = model.predict(df_std)
+#prediction = model.predict(df_std)
 prediction_proba = model.predict_proba(df_std)
 
 #display predictions
 st.subheader('Prediction')
-output = np.array(['will stay', 'will leave'])
-st.write(output[int(prediction[0])])
+#output = np.array([
+#    'The candidate is probably not looking for job change', 
+#    'The candidate is probably looking for job change'])
 
-st.subheader('Prediction Probability')
-st.write(prediction_proba)
+#st.write(output[int(prediction[0])])
+
+#st.subheader('Prediction Probability')
+#st.write(prediction_proba)
+
+#st.write("""the probability of a candidate not looking for a new job or 
+#         will not work for the company = """, prediction_proba[0][0])
+         
+st.write("""the probability of a candidate looking for a new job or 
+         will work for the company = """, prediction_proba[0][1])
+
+
+
+
+
+st.write("""
+         ### Github: https://github.com/ouss3ma/hr_analytics_app
+         """)
