@@ -1,6 +1,6 @@
 # HR analytics web app deployed on Heroku
 
-##Objective
+## Objective
 
 This app predicts the probability of a candidate looking for a new job or will work for the company.
 
