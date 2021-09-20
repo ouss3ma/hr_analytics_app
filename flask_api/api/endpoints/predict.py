@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Sep 15 13:20:20 2021
+Created on Sun Sep 19 21:25:33 2021
 
 @author: ouss3ma
 """
-
-from flask import Flask, request, jsonify
+from flask import Blueprint, Flask, request, jsonify
 import numpy as np
 import pandas as pd
 import pickle
@@ -13,12 +12,25 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 
 
-app = Flask(__name__)
-
+predict_api = Blueprint('predict_api', __name__) 
 
 
 
 def hr_prediction(df):
+    
+    #load classifier
+    model = pickle.load(open('/api/models/model.pkl', 'rb'))
+    
+    #load standarization
+    scaler_std = pickle.load(open('/api/models/std.pkl', 'rb'))
+
+    #load label encoders
+    exp = pickle.load(open('/api/models/exp.pkl', 'rb'))
+    enrol = pickle.load(open('/api/models/enrol.pkl', 'rb'))
+    edu = pickle.load(open('/api/models/edu.pkl', 'rb')) 
+    maj = pickle.load(open('/api/models/maj.pkl', 'rb'))
+    typ = pickle.load(open('/api/models/typ.pkl', 'rb'))
+    gen = pickle.load(open('/api/models/gen.pkl', 'rb'))
     
     #encoding features
     df['enrolled_university'] = enrol.transform(df['enrolled_university'])
@@ -38,7 +50,7 @@ def hr_prediction(df):
 
     
 
-@app.errorhandler(400)
+@predict_api.errorhandler(400)
 def bad_request(error=None):
 	message = {
 			'status': 400,
@@ -50,12 +62,7 @@ def bad_request(error=None):
 	return resp
     
 
-@app.route("/")
-def hello():
-    return "Welcome to the HR Analytics: Job Change of Data Scientist Prediction APIs!"
-
-
-@app.route('/predict', methods=['POST'])
+@predict_api.route('/predict', methods=['POST'])
 def predict():
     try:
         json_ = request.json
@@ -71,23 +78,6 @@ def predict():
         prediction = hr_prediction(query_df)    
         return jsonify({'prediction': prediction})
 
-if __name__ == '__main__':
-    #load classifier
-    model = pickle.load(open('models\model.pkl', 'rb'))
-    
-    #load standarization
-    scaler_std = pickle.load(open('models\std.pkl', 'rb'))
 
-    #load label encoders
-    exp = pickle.load(open('models\exp.pkl', 'rb'))
-    enrol = pickle.load(open('models\enrol.pkl', 'rb'))
-    edu = pickle.load(open('models\edu.pkl', 'rb')) 
-    maj = pickle.load(open('models\maj.pkl', 'rb'))
-    typ = pickle.load(open('models\typ.pkl', 'rb'))
-    gen = pickle.load(open('models\gen.pkl', 'rb'))
-    
-    print('load done!!')
-    
-    app.run(debug=True)
     
     
