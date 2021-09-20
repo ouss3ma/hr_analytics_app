@@ -28,18 +28,38 @@ The web app was built in Python using the following libraries:
 
 # Flask API
 
-Exemple of json POST data:
+Exemple of Json POST data:
 
 {
+
     "gender" : "Male",
+    
     "city_dev_idx" : 0.1,
+    
     "relevent_experience" : "Has relevent experience",
+    
     "enrolled_university" : "no_enrollment",
+    
     "education_level" : "Graduate",
+    
     "Major_discipline" : "STEM",
+    
     "experience" : 0,
+    
     "company_size" : 1,
+    
     "company_type" : "Pvt Ltd",
+    
     "last_new_job" : 0,
-    "Training_hours" : 0
+    
+    "Training_hours" : 0    
+
+}
+
+
+
+The Json returned from the API is in this form:
+
+{
+    "prediction": 0.3348158569180431
 }
