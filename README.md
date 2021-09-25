@@ -28,6 +28,14 @@ The web app was built in Python using the following libraries:
 
 # Flask API
 
+make sure you have Docker and docker-compose installed in your machine.
+
+Run the following on your terminal to start docker-compose, setup the containers and start the API:
+
+$ docker-compose build
+$ docker-compose up
+
+
 Exemple of Json POST data:
 
 {
